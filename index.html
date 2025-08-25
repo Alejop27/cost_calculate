@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Costos para Emprendedores</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Encabezado -->
+        <header class="app-header">
+            <h1>✨ Calculadora de Costos ✨</h1>
+            <p>Gestiona tus insumos y calcula el precio perfecto para tus productos</p>
+        </header>
+
+        <!-- Navegación por pestañas -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" data-tab="insumos">
+                <span>📦</span>
+                Gestión de Insumos
+            </button>
+            <button class="tab-btn" data-tab="calculadora">
+                <span>🧮</span>
+                Calculadora de Costos
+            </button>
+            <button class="tab-btn" data-tab="historial">
+                <span>📊</span>
+                Historial
+            </button>
+        </nav>
+
+        <!-- Sección 1: Gestión de Insumos -->
+        <section id="insumos" class="tab-content active">
+            <div class="card">
+                <div class="card__header">
+                    <h2>🎯 Añadir Nuevo Insumo</h2>
+                </div>
+                <div class="card__body">
+                    <form id="form-insumo" class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">✏️ Nombre del Insumo</label>
+                            <input type="text" id="nombre-insumo" class="form-control" placeholder="Ej: Harina de trigo premium" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">📊 Cantidad Comprada</label>
+                            <input type="number" id="cantidad-insumo" class="form-control" step="0.01" min="0" placeholder="5.0" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">📏 Unidad de Medida</label>
+                            <select id="unidad-insumo" class="form-control" required>
+                                <option value="">Seleccionar unidad</option>
+                                <option value="kg">🏋️ Kilogramo (kg)</option>
+                                <option value="g">⚖️ Gramo (g)</option>
+                                <option value="l">🥤 Litro (l)</option>
+                                <option value="ml">💧 Mililitro (ml)</option>
+                                <option value="m">📐 Metro (m)</option>
+                                <option value="cm">📏 Centímetro (cm)</option>
+                                <option value="und">🔢 Unidad (und)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">💰 Precio Total Pagado ($)</label>
+                            <input type="number" id="precio-insumo" class="form-control" step="0.01" min="0" placeholder="25.50" required>
+                        </div>
+                        
+                        <div class="form-group form-actions">
+                            <button type="submit" class="btn btn--secondary">
+                                ✨ Añadir Insumo
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Lista de Insumos -->
+            <div class="card mt-24">
+                <div class="card__header">
+                    <h3>📋 Lista de Insumos</h3>
+                    <span id="total-insumos" class="status status--info">0 insumos</span>
+                </div>
+                <div class="card__body">
+                    <div class="table-container">
+                        <table id="tabla-insumos" class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>🏷️ Insumo</th>
+                                    <th>📦 Cant. Original</th>
+                                    <th>💵 Precio Total</th>
+                                    <th>🔄 Cant. Convertida</th>
+                                    <th>💎 Precio por Unidad</th>
+                                    <th>⚡ Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="empty-insumos">
+                                    <td colspan="6" class="empty-state">
+                                        🌟 No hay insumos registrados. ¡Añade tu primer insumo arriba!
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 2: Calculadora de Costos -->
+        <section id="calculadora" class="tab-content">
+            <div class="calculator-layout">
+                <!-- Panel Izquierdo: Configuración del Producto -->
+                <div class="calc-panel">
+                    <div class="card">
+                        <div class="card__header">
+                            <h2>🎨 Configuración del Producto</h2>
+                        </div>
+                        <div class="card__body">
+                            <form id="form-producto">
+                                <div class="form-group">
+                                    <label class="form-label">🏷️ Nombre del Producto Final</label>
+                                    <input type="text" id="nombre-producto" class="form-control" placeholder="Ej: Torta Tres Leches Deluxe" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">🔢 Cantidad del Pedido</label>
+                                    <input type="number" id="cantidad-pedido" class="form-control" min="1" value="1" required>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Selección de Ingredientes -->
+                    <div class="card mt-16">
+                        <div class="card__header">
+                            <h3>🧪 Ingredientes del Producto</h3>
+                        </div>
+                        <div class="card__body">
+                            <form id="form-ingrediente" class="ingredient-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">🎯 Insumo</label>
+                                        <select id="select-insumo" class="form-control">
+                                            <option value="">Seleccionar insumo</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">📊 Cantidad Requerida</label>
+                                        <input type="number" id="cantidad-requerida" class="form-control" step="0.01" min="0" placeholder="0.5">
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn--secondary">
+                                    ➕ Agregar Ingrediente
+                                </button>
+                            </form>
+                            
+                            <div id="lista-ingredientes" class="ingredient-list mt-16">
+                                <!-- Ingredientes añadidos aparecerán aquí -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gastos Adicionales -->
+                    <div class="card mt-16">
+                        <div class="card__header">
+                            <h3>💡 Gastos Adicionales</h3>
+                        </div>
+                        <div class="card__body">
+                            <form id="form-gasto">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">📝 Concepto</label>
+                                        <input type="text" id="concepto-gasto" class="form-control" placeholder="Ej: Gas, Energía eléctrica, Transporte">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="form-label">💰 Costo ($)</label>
+                                        <input type="number" id="costo-gasto" class="form-control" step="0.01" min="0" placeholder="5.00">
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn--secondary">
+                                    ➕ Agregar Gasto
+                                </button>
+                            </form>
+                            
+                            <div id="lista-gastos" class="expense-list mt-16">
+                                <!-- Gastos añadidos aparecerán aquí -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Configuración de Porcentajes -->
+                    <div class="card mt-16">
+                        <div class="card__header">
+                            <h3>⚙️ Configuración de Porcentajes</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="form-group">
+                                <label class="form-label">🗑️ Porcentaje de Desperdicio (%)</label>
+                                <input type="number" id="porcentaje-desperdicio" class="form-control" value="10" step="0.1" min="0">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">🏢 Porcentaje de Costos Fijos (%)</label>
+                                <input type="number" id="porcentaje-costos-fijos" class="form-control" value="20" step="0.1" min="0">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">💼 Porcentaje de Mano de Obra / Ganancia (%)</label>
+                                <input type="number" id="porcentaje-mano-obra" class="form-control" value="50" step="0.1" min="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel Derecho: Resultados -->
+                <div class="calc-panel">
+                    <div class="card results-card">
+                        <div class="card__header">
+                            <h2>📊 Resumen de Costos</h2>
+                            <button id="btn-calcular" class="btn btn--primary">
+                                🚀 Calcular Costos
+                            </button>
+                        </div>
+                        <div class="card__body">
+                            <div class="cost-summary">
+                                <div class="cost-item">
+                                    <span>🧪 Subtotal Ingredientes:</span>
+                                    <span id="subtotal-ingredientes" class="currency">$0.00</span>
+                                </div>
+                                
+                                <div class="cost-item">
+                                    <span>💡 Gastos Adicionales:</span>
+                                    <span id="total-gastos" class="currency">$0.00</span>
+                                </div>
+                                
+                                <div class="cost-item subtotal">
+                                    <span>📋 Subtotal Base:</span>
+                                    <span id="subtotal-base" class="currency">$0.00</span>
+                                </div>
+                                
+                                <div class="cost-item">
+                                    <span>🗑️ Desperdicio (<span id="display-desperdicio">10</span>%):</span>
+                                    <span id="valor-desperdicio" class="currency">$0.00</span>
+                                </div>
+                                
+                                <div class="cost-item">
+                                    <span>🏢 Costos Fijos (<span id="display-costos-fijos">20</span>%):</span>
+                                    <span id="valor-costos-fijos" class="currency">$0.00</span>
+                                </div>
+                                
+                                <div class="cost-item">
+                                    <span>💼 Mano de Obra (<span id="display-mano-obra">50</span>%):</span>
+                                    <span id="valor-mano-obra" class="currency">$0.00</span>
+                                </div>
+                                
+                                <div class="cost-item total">
+                                    <span>💎 Costo Unitario Final:</span>
+                                    <span id="costo-unitario" class="currency">$0.00</span>
+                                </div>
+                                
+                                <div class="cost-item final">
+                                    <span>🎯 Total del Pedido (<span id="display-cantidad">1</span> unidades):</span>
+                                    <span id="total-pedido" class="currency">$0.00</span>
+                                </div>
+                            </div>
+
+                            <div class="action-buttons mt-24">
+                                <button id="btn-guardar-calculo" class="btn btn--primary btn--full-width">
+                                    💾 Guardar Cálculo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detalle de Ingredientes -->
+                    <div class="card mt-16">
+                        <div class="card__header">
+                            <h3>🔍 Detalle de Ingredientes</h3>
+                        </div>
+                        <div class="card__body">
+                            <div class="table-container">
+                                <table id="tabla-detalle-ingredientes" class="data-table">
+                                    <thead>
+                                        <tr>
+                                            <th>🧪 Ingrediente</th>
+                                            <th>📊 Cantidad</th>
+                                            <th>💰 Precio Unit.</th>
+                                            <th>💵 Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" class="empty-state">
+                                                🌟 No hay ingredientes añadidos
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 3: Historial -->
+        <section id="historial" class="tab-content">
+            <div class="card">
+                <div class="card__header">
+                    <h2>📚 Historial de Cálculos</h2>
+                    <button id="btn-limpiar-historial" class="btn btn--outline">
+                        🗑️ Limpiar Historial
+                    </button>
+                </div>
+                <div class="card__body">
+                    <div id="lista-historial" class="history-list">
+                        <div class="empty-state">
+                            🎯 No hay cálculos guardados. ¡Realiza tu primer cálculo en la sección "Calculadora de Costos"!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal de Confirmación -->
+    <div id="modal-confirmar" class="modal hidden">
+        <div class="modal-content">
+            <h3>⚠️ Confirmar Acción</h3>
+            <p id="modal-mensaje"></p>
+            <div class="modal-actions">
+                <button id="modal-cancelar" class="btn btn--outline">❌ Cancelar</button>
+                <button id="modal-confirmar-btn" class="btn btn--primary">✅ Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

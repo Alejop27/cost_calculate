@@ -1,0 +1,129 @@
+{
+  "unidades_medida": [
+    {
+      "id": "kg",
+      "nombre": "Kilogramo",
+      "factor_gramo": 1000,
+      "tipo": "peso"
+    },
+    {
+      "id": "g",
+      "nombre": "Gramo",
+      "factor_gramo": 1,
+      "tipo": "peso"
+    },
+    {
+      "id": "ml",
+      "nombre": "Mililitro",
+      "factor_gramo": 1,
+      "tipo": "liquido"
+    },
+    {
+      "id": "l",
+      "nombre": "Litro",
+      "factor_gramo": 1000,
+      "tipo": "liquido"
+    },
+    {
+      "id": "und",
+      "nombre": "Unidad",
+      "factor_gramo": 1,
+      "tipo": "unidad"
+    },
+    {
+      "id": "cm",
+      "nombre": "Centímetro",
+      "factor_gramo": 1,
+      "tipo": "longitud"
+    },
+    {
+      "id": "m",
+      "nombre": "Metro",
+      "factor_gramo": 100,
+      "tipo": "longitud"
+    }
+  ],
+  "ejemplo_productos": [
+    {
+      "id": 1,
+      "nombre": "Harina",
+      "cantidad_original": 5,
+      "unidad_original": "kg",
+      "precio_total": 20,
+      "cantidad_convertida": 5000,
+      "unidad_convertida": "g",
+      "valor_por_unidad_convertida": 0.004
+    },
+    {
+      "id": 2,
+      "nombre": "Azúcar",
+      "cantidad_original": 2,
+      "unidad_original": "kg",
+      "precio_total": 15,
+      "cantidad_convertida": 2000,
+      "unidad_convertida": "g",
+      "valor_por_unidad_convertida": 0.0075
+    },
+    {
+      "id": 3,
+      "nombre": "Leche",
+      "cantidad_original": 1,
+      "unidad_original": "l",
+      "precio_total": 5,
+      "cantidad_convertida": 1000,
+      "unidad_convertida": "ml",
+      "valor_por_unidad_convertida": 0.005
+    },
+    {
+      "id": 4,
+      "nombre": "Huevos",
+      "cantidad_original": 12,
+      "unidad_original": "und",
+      "precio_total": 8,
+      "cantidad_convertida": 12,
+      "unidad_convertida": "und",
+      "valor_por_unidad_convertida": 0.667
+    }
+  ],
+  "ejemplo_receta": {
+    "nombre": "Torta de 3 Leches - 30 personas",
+    "ingredientes": [
+      {
+        "producto_id": 1,
+        "cantidad_requerida": 1000,
+        "unidad": "g"
+      },
+      {
+        "producto_id": 2,
+        "cantidad_requerida": 500,
+        "unidad": "g"
+      },
+      {
+        "producto_id": 3,
+        "cantidad_requerida": 800,
+        "unidad": "ml"
+      },
+      {
+        "producto_id": 4,
+        "cantidad_requerida": 6,
+        "unidad": "und"
+      }
+    ],
+    "gastos_adicionales": [
+      {
+        "concepto": "Gas para hornear",
+        "valor": 10
+      },
+      {
+        "concepto": "Energía eléctrica",
+        "valor": 15
+      }
+    ],
+    "porcentajes_calculo": {
+      "desperdicio": 0.1,
+      "costos_fijos": 0.2,
+      "mano_obra": 0.5
+    },
+    "cantidad_pedido": 2
+  }
+}
